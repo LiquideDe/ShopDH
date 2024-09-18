@@ -11,6 +11,11 @@ public class GetRandomThing : GetRandomEquipment
         _things = new List<Equipment>(things);
     }
 
+    protected override Equipment GetGuaranteedEquipment()
+    {
+        return GetRandomEquipmentFromDataBase(_things);
+    }
+
     protected override Equipment RandomEquipment()
     {
         if (TryGetInChanse(_thingValue))

@@ -36,11 +36,8 @@ public class ChanceView : MonoBehaviour
         {
             SliderPanel slider = Instantiate(_sliderPrefab, _content);
             slider.Initialize(chance.Name, chance.Value);
-            if(chance.Minimum != 0)
-            {
-                _inputMinimum.text = chance.Minimum.ToString();
-                _inputMaximum.text = chance.Maximum.ToString();
-            }
+            _inputMinimum.text = chance.Minimum.ToString();
+            _inputMaximum.text = chance.Maximum.ToString();
             _sliders.Add(slider);
         }
     }

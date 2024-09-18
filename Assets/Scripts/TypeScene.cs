@@ -1,4 +1,5 @@
 public enum TypeScene
 {
-    ChancePanel
+    ChancePanel,
+    TextInfo
 }

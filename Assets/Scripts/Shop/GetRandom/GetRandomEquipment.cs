@@ -12,6 +12,8 @@ public abstract class GetRandomEquipment
 
     public List<Equipment> GetListRandomEquipment(int min, int max, int attempts = 0)
     {
+
+        Debug.Log($"Получаем список");
         List<Equipment> equipments = new List<Equipment>();
         if (max == 0)
             return equipments;
@@ -19,25 +21,29 @@ public abstract class GetRandomEquipment
         if (attempts == 0)
             attempts = max;
 
-        Equipment equipment = RandomEquipment();
+        if (min > 0)
+            for (int i = 0; i < min; i++)
+                equipments.Add(GetGuaranteedEquipment());
+        
+        Equipment equipment = null;
+        if (max > min)
+            equipment = RandomEquipment();
+        
         if(equipment != null)
             equipments.Add(equipment);
 
         attempts--;
 
-        min = Math.Clamp(min - equipments.Count, 0, min);
-
-        if (equipments.Count <= max && attempts > 0)
-        {
-            equipments.AddRange(GetListRandomEquipment(min, max - equipments.Count, attempts));
-        }
-        else if (attempts == 0 && equipments.Count < min)
-            equipments.AddRange(GetListRandomEquipment(min, max - equipments.Count));
+        if (equipments.Count < max && attempts > 0)        
+            equipments.AddRange(GetListRandomEquipment(0, max - equipments.Count, attempts));
+        
 
         return equipments;
     }
 
     protected abstract Equipment RandomEquipment();
+
+    protected abstract Equipment GetGuaranteedEquipment();
 
     protected Equipment GetRandomEquipmentFromDataBase(List<Equipment> equipments)
     {

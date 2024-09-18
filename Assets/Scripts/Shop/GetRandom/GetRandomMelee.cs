@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class GetRandomMelee : GetRandomEquipment
 {
     private float _chainValue, _powerValue, _forceValue, _schockValue;
@@ -8,6 +10,25 @@ public class GetRandomMelee : GetRandomEquipment
         _powerValue = powerValue;
         _forceValue = forceValue;
         _schockValue = schockValue;
+    }
+
+    protected override Equipment GetGuaranteedEquipment()
+    {
+        List<Equipment> melees = new List<Equipment>();
+
+        if (_chainValue > 0)
+            melees.AddRange(_equipmentDataBase.Chains);
+
+        if (_powerValue > 0)
+            melees.AddRange(_equipmentDataBase.PowerFields);
+
+        if (_forceValue > 0)
+            melees.AddRange(_equipmentDataBase.Force);
+
+        if (_schockValue > 0)
+            melees.AddRange(_equipmentDataBase.Shock);
+
+        return GetRandomEquipmentFromDataBase(melees);
     }
 
     protected override Equipment RandomEquipment()

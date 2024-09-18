@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class GetRandomRange : GetRandomEquipment
 {
     private float _bolterValue, _firearmsValue, _flamesValue, _plasmasValue, _lasersValue, _mechanicumValue;
@@ -10,6 +12,31 @@ public class GetRandomRange : GetRandomEquipment
         _plasmasValue = plasmasValue;
         _lasersValue = lasersValue;
         _mechanicumValue = mechanicumValue;
+    }
+
+    protected override Equipment GetGuaranteedEquipment()
+    {
+        List<Equipment> ranges = new List<Equipment>();
+
+        if (_bolterValue > 0)
+            ranges.AddRange(_equipmentDataBase.Bolters);
+
+        if (_firearmsValue > 0)
+            ranges.AddRange(_equipmentDataBase.Firearms);
+
+        if (_flamesValue > 0)
+            ranges.AddRange(_equipmentDataBase.Flames);
+
+        if (_plasmasValue > 0)
+            ranges.AddRange(_equipmentDataBase.Plasmas);
+
+        if (_lasersValue > 0)
+            ranges.AddRange(_equipmentDataBase.Lasers);
+
+        if (_mechanicumValue > 0)
+            ranges.AddRange(_equipmentDataBase.Mechanicums);
+
+        return GetRandomEquipmentFromDataBase(ranges);
     }
 
     protected override Equipment RandomEquipment()

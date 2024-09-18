@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class GetRandomBullets : GetRandomEquipment
 {
     private float _bolterBullets, _fireArmsBullets, _plasmaLiquid, _flameLiquid, _chaosBullets, _laserCharges;
@@ -11,6 +13,31 @@ public class GetRandomBullets : GetRandomEquipment
         _flameLiquid = flameLiquid;
         _chaosBullets = chaosBullets;
         _laserCharges = laserCharges;
+    }
+
+    protected override Equipment GetGuaranteedEquipment()
+    {
+        List<Equipment> bullets = new List<Equipment>();
+
+        if (_bolterBullets > 0)
+            bullets.AddRange(_equipmentDataBase.BolterBullets);
+
+        if (_fireArmsBullets > 0)
+            bullets.AddRange(_equipmentDataBase.FireArmsBullets);
+
+        if (_plasmaLiquid > 0)
+            bullets.AddRange(_equipmentDataBase.PlasmaLiquid);
+
+        if (_flameLiquid > 0)
+            bullets.AddRange(_equipmentDataBase.FlameLiquid);
+
+        if (_chaosBullets > 0)
+            bullets.AddRange(_equipmentDataBase.ChaosBullets);
+
+        if (_laserCharges > 0)
+            bullets.AddRange(_equipmentDataBase.LaserCharges);
+
+        return GetRandomEquipmentFromDataBase(bullets);
     }
 
     protected override Equipment RandomEquipment()

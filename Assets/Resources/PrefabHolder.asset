@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PrefabHolder
   m_EditorClassIdentifier: 
   _chancePanel: {fileID: 2640361727129273660, guid: a0fe1f555faa1da49a562367f6f033b0, type: 3}
+  _textInfo: {fileID: 7684313770890624200, guid: bbfebcfa3580eca459e132ed112795d1, type: 3}

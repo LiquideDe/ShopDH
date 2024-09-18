@@ -45,7 +45,29 @@ public class ShopPresenter
         _view.ShowThingsChance += ShowThingsChancePanel;
         _view.ShowUpgradeChance += ShowUpgradeChancePanel;
 
+        _view.ShowThisItem += ShowThisItem;
+
         _view.RemoveThisItem += RemoveThisItem;
+    }
+
+    private void ShowThisItem(string name)
+    {
+        _audioManager.PlayClick();
+        Debug.Log($"ищем {name}");
+        foreach (Equipment equipment in _equipments)
+            if (string.Compare(name, equipment.Name, true) == 0)
+            {
+                TextInfoView textInfo = _lvlFactory.Get( TypeScene.TextInfo).GetComponent<TextInfoView>();
+                textInfo.Close += CloseTextInfo;
+                textInfo.Initialize(equipment);
+                break;
+            }
+    }
+
+    private void CloseTextInfo(TextInfoView textView)
+    {
+        _audioManager.PlayClick();
+        textView.DestroyView();
     }
 
     private void RemoveThisItem(string name)
